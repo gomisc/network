@@ -328,6 +328,10 @@ func (r *request) doRequest(method string) (*http.Response, error) {
 		return nil, errNotInitializedRequest
 	}
 
+	if r.tracer == nil {
+		r.tracer = trace.NewNoopTracerProvider().Tracer("nethttp.Request")
+	}
+
 	r.r.Method = method
 	ctx, span := r.tracer.Start(r.r.Context(), "nethttp.doRequest")
 
