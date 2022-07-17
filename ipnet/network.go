@@ -26,22 +26,18 @@ type NetworksAllocator struct {
 
 // NewNetworkAllocator конструктор интерфейса резервирования сетей
 func NewNetworkAllocator(getter NetworksGetter, reserved ...string) (*NetworksAllocator, error) {
+	reservedNetworks, err := getReservedNetworks(reserved...)
+	if err != nil {
+		return nil, errors.Wrap(err, "fill reserved networks")
+	}
+
 	na := &NetworksAllocator{
 		getter: getter,
-		used:   make(NetworksSet),
+		used:   reservedNetworks,
 		addr: &net.IPNet{
 			IP:   net.IPv4(172, 16, 0, 0),
 			Mask: net.IPv4Mask(255, 240, 0, 0),
 		},
-	}
-
-	for i := 0; i < len(reserved); i++ {
-		_, reserve, err := net.ParseCIDR(reserved[i])
-		if err != nil {
-			return nil, errors.Ctx().Str("parsed", reserved[i]).Wrap(err, "parse reserved network")
-		}
-		sz, _ := reserve.Mask.Size()
-		na.used[reserve.String()] = sz
 	}
 
 	return na, nil
@@ -82,4 +78,20 @@ func (na *NetworksAllocator) GetFreeSubnet(ctx context.Context) (*net.IPNet, err
 		}
 	}
 	return nil, nil
+}
+
+func getReservedNetworks(reserved ...string) (NetworksSet, error) {
+	set := make(NetworksSet)
+
+	for i := 0; i < len(reserved); i++ {
+		_, reserve, err := net.ParseCIDR(reserved[i])
+		if err != nil {
+			return nil, errors.Ctx().Str("parsed", reserved[i]).Wrap(err, "parse reserved network")
+		}
+
+		sz, _ := reserve.Mask.Size()
+		set[reserve.String()] = sz
+	}
+
+	return set, nil
 }
