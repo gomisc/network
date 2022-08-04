@@ -1,17 +1,17 @@
 module git.corout.in/golibs/network
 
-go 1.17
+go 1.18
 
 require (
-	git.corout.in/golibs/errors v1.1.4
+	git.corout.in/golibs/errors v1.1.15
 	github.com/onsi/ginkgo v1.16.5
 	golang.org/x/net v0.0.0-20220708220712-1185a9018129
 )
 
 require (
 	git.corout.in/golibs/tags v1.0.3
-	git.corout.in/golibs/types v1.0.1
-	github.com/stretchr/testify v1.7.1
+	git.corout.in/golibs/types v1.0.2
+	github.com/stretchr/testify v1.8.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.33.0
 	go.opentelemetry.io/otel/trace v1.8.0
 )
@@ -28,5 +28,5 @@ require (
 	go.opentelemetry.io/otel v1.8.0 // indirect
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
