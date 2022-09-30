@@ -71,7 +71,7 @@ type formSpec struct {
 }
 
 // Request - конструктор HTTP-запроса
-func Request(addr string, args ...interface{}) R {
+func Request(addr string, args ...any) R {
 	req := &request{cli: DefaultClient}
 	req.r, req.err = http.NewRequest(http.MethodGet, fmt.Sprintf(addr, args...), nil)
 

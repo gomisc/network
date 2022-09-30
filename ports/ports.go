@@ -45,31 +45,11 @@ const (
 // Диапазоны портов для тестов по сервисам
 const (
 	ToolsBasePort TestPortRange = basePort + portsPerSuite*iota
-	TokenManagerBasePort
-	MetricsGateBasePort
-	MediationBasePort
-	MetricsEnricherBasePort
-	ProductCatalogBasePort
-	ChargingBasePort
-	ReportBasePort
-	ForisPluginBasePort
-	MonetizationBasePort
-	ElasticPluginBasePort
-	CDNPluginBasePort
 )
 
 // Порты отладки сервисов
 const (
-	APIGateDebug DebugPort = BaseDebugPort + iota
-	MetricsGateDebug
-	TokenManagerDebug
-	MediationDebug
-	MetricsEnricherDebug
-	ProductCatalogDebug
-	ChargingDebug
-	ReportDebug
-	ForisPluginDebug
-	MonetizationDebug
+	DefaultDebug DebugPort = BaseDebugPort + iota
 )
 
 func (p DebugPort) Port() uint16 {
@@ -90,26 +70,6 @@ func (p DebugPort) String() string {
 
 func (p DebugPort) Command() string {
 	switch p {
-	case APIGateDebug:
-		return "/bin/api-gate"
-	case MetricsGateDebug:
-		return "/bin/metricsgate"
-	case TokenManagerDebug:
-		return "/bin/tokenmanager"
-	case MediationDebug:
-		return "/bin/mediation"
-	case MetricsEnricherDebug:
-		return "/bin/metricsenricher"
-	case ProductCatalogDebug:
-		return "/bin/productcatalog"
-	case ChargingDebug:
-		return "/bin/charging"
-	case ReportDebug:
-		return "/bin/report"
-	case ForisPluginDebug:
-		return "/bin/forisplugin"
-	case MonetizationDebug:
-		return "/bin/monetization"
 	default:
 		return ""
 	}
@@ -119,26 +79,8 @@ func (p DebugPort) Enabled() bool {
 	const enabled = "true"
 
 	switch p {
-	case APIGateDebug:
-		return os.Getenv("API_GATE_DEBUG") == enabled
-	case MetricsGateDebug:
-		return os.Getenv("METRICS_GATE_DEBUG") == enabled
-	case TokenManagerDebug:
-		return os.Getenv("TOKEN_MANAGER_DEBUG") == enabled
-	case MediationDebug:
-		return os.Getenv("MEDIATION_DEBUG") == enabled
-	case MetricsEnricherDebug:
-		return os.Getenv("METRICS_ENRICHER_DEBUG") == enabled
-	case ProductCatalogDebug:
-		return os.Getenv("PRODUCT_CATALOG_DEBUG") == enabled
-	case ChargingDebug:
-		return os.Getenv("CHARGING_DEBUG") == enabled
-	case ReportDebug:
-		return os.Getenv("REPORT_DEBUG") == enabled
-	case ForisPluginDebug:
-		return os.Getenv("FORIS_PLUGIN_DEBUG") == enabled
-	case MonetizationDebug:
-		return os.Getenv("MONETIZATION_DEBUG") == enabled
+	case DefaultDebug:
+		return os.Getenv("DEFAULT_DEBUG") == enabled
 	default:
 		return false
 	}
