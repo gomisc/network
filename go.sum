@@ -4,8 +4,10 @@ git.corout.in/golibs/errors v1.1.17 h1:CZmK+CAjeR4ch+YHtSLGiGmON3GYgUrN13uhj3X0a
 git.corout.in/golibs/errors v1.1.17/go.mod h1:1G1lyVB1l2bf9X2CvQf//WfOIcQ/KwcE2Bd8VXOGaNY=
 git.corout.in/golibs/fields v1.0.6 h1:qobLeHsVzxhsUH+cBc8JEtz/B9M691HSLy0J9pUJXHA=
 git.corout.in/golibs/fields v1.0.6/go.mod h1:SfKMdRc3L2vprkZQ7/eTK5tuKrQ+w7O2Fh6r3ZQjmP8=
-git.corout.in/golibs/filepaths v1.0.6 h1:Ef8hLiefJzFTAAV1Pa5Spykk8ORRW23w46Cmr0bh7+Y=
-git.corout.in/golibs/filepaths v1.0.6/go.mod h1:cNR+OZZJxHAUgmbjlx55KkOGrwH67LZqdWA+syUiyOs=
+git.corout.in/golibs/filepaths v1.0.7 h1:PPL0MT3khjaag5MYhCK+TUdL5p3h+4EASkPrx13uvV0=
+git.corout.in/golibs/filepaths v1.0.7/go.mod h1:cNR+OZZJxHAUgmbjlx55KkOGrwH67LZqdWA+syUiyOs=
+git.corout.in/golibs/iorw v1.0.6 h1:as9FG6dKya9pRge6kd/aahrkv8IifYKdbGAeUsHWJg8=
+git.corout.in/golibs/iorw v1.0.6/go.mod h1:yLRubeddNcQVp5e5yxPWt7CQDoQBEMRaxArSPBxXa6o=
 git.corout.in/golibs/slog v1.0.9 h1:tol+rBAMb0d4hbjuroRb99qJE4Nr44RiTBjJKsWnwuo=
 git.corout.in/golibs/slog v1.0.9/go.mod h1:4CmPpKowM9tXa3kT32t7k7WYyLGp8iQnk0EvhePi/0s=
 git.corout.in/golibs/tags v1.0.5 h1:myDMEHuCvvTjARR7hqJECqHKyKOH9triHzDhAKfhzhg=
