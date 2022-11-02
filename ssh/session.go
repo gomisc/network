@@ -7,11 +7,11 @@ import (
 	"os"
 	"time"
 
-	"git.corout.in/golibs/errors"
-	"git.corout.in/golibs/errors/errgroup"
+	"git.eth4.dev/golibs/errors"
+	"git.eth4.dev/golibs/errors/errgroup"
 	"golang.org/x/crypto/ssh"
 
-	"git.corout.in/golibs/iorw"
+	"git.eth4.dev/golibs/iorw"
 )
 
 type sshSession struct {

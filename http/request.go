@@ -16,8 +16,8 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
 	"go.opentelemetry.io/otel/trace"
 
-	"git.corout.in/golibs/errors"
-	"git.corout.in/golibs/tags"
+	"git.eth4.dev/golibs/errors"
+	"git.eth4.dev/golibs/tags"
 )
 
 // Настройки

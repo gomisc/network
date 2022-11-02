@@ -5,7 +5,7 @@ import (
 	"net"
 	"sync"
 
-	"git.corout.in/golibs/errors"
+	"git.eth4.dev/golibs/errors"
 )
 
 type (

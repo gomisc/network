@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"git.corout.in/golibs/colors"
-	"git.corout.in/golibs/errors"
+	"git.eth4.dev/golibs/colors"
+	"git.eth4.dev/golibs/errors"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/knownhosts"
 )

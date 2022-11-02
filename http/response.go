@@ -9,8 +9,8 @@ import (
 	"os"
 	"strconv"
 
-	"git.corout.in/golibs/errors"
-	"git.corout.in/golibs/types"
+	"git.eth4.dev/golibs/errors"
+	"git.eth4.dev/golibs/types"
 )
 
 // ResponseOrError - кастует модель ответа или ошибку из HTTP ответа
