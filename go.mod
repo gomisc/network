@@ -12,6 +12,7 @@ require (
 	git.eth4.dev/golibs/colors v1.1.0
 	git.eth4.dev/golibs/iorw v1.1.0
 	git.eth4.dev/golibs/tags v1.1.0
+	git.eth4.dev/golibs/types v1.1.1
 	github.com/stretchr/testify v1.8.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.34.0
 	go.opentelemetry.io/otel/trace v1.9.0
@@ -19,6 +20,9 @@ require (
 )
 
 require (
+	git.eth4.dev/golibs/fields v1.1.0 // indirect
+	git.eth4.dev/golibs/filepaths v1.1.0 // indirect
+	git.eth4.dev/golibs/slog v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect

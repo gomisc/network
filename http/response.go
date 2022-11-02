@@ -3,19 +3,19 @@ package nethttp
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httputil"
 	"os"
 	"strconv"
 
 	"git.eth4.dev/golibs/errors"
-	"git.eth4.dev/golibs/types"
+	"git.eth4.dev/golibs/types/caster"
 )
 
 // ResponseOrError - кастует модель ответа или ошибку из HTTP ответа
 func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return errors.Wrap(err, "read response body")
 	}
@@ -36,7 +36,7 @@ func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
 	switch resp.StatusCode {
 	case wanted:
 		if len(body) != 0 && data != nil {
-			caster := types.DefaultCaster()
+			caster := caster.Default()
 
 			if err = caster.Cast(body, data); err != nil {
 				return errors.Wrap(err, "decode response data")
