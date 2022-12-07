@@ -7,9 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
-	"os"
 	"reflect"
 	"time"
 
@@ -22,23 +20,8 @@ import (
 
 // Настройки
 const (
-	EnableDumpEnvVar = "HTTP_DUMP_ENABLE"
-	enable           = "true"
-
 	errNotInitializedRequest = errors.Const("request not initialized")
 )
-
-const requestDumpTpl = `
-============ REQUEST ========================================
-%s
-============ END REQUEST ====================================
-`
-
-const responseDumpTpl = `
-============ RESPONSE =======================================
-%s
-============ END RESPONSE ===================================
-`
 
 // R - интерфейс HTTP-запроса
 type R interface {
@@ -336,13 +319,6 @@ func (r *request) doRequest(method string) (*http.Response, error) {
 	ctx, span := r.tracer.Start(r.r.Context(), "nethttp.doRequest")
 
 	defer span.End()
-
-	if dumpvar := os.Getenv(EnableDumpEnvVar); dumpvar == enable {
-		defer func() {
-			dumpRequest, _ := httputil.DumpRequest(r.r, true)
-			_, _ = fmt.Fprintf(os.Stdout, requestDumpTpl, string(dumpRequest))
-		}()
-	}
 
 	req := r.r.WithContext(ctx)
 	otelhttptrace.Inject(ctx, req)
