@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"strconv"
 
 	"git.eth4.dev/golibs/errors"
 	"git.eth4.dev/golibs/types/caster"
@@ -61,11 +60,6 @@ func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
 				Str("request-uri", resp.Request.RequestURI).
 				Str("trace-request-id", traceID).
 				New("get response error")
-		}
-
-		code := cerr["code"].(string)
-		if code == "" {
-			code = strconv.Itoa(resp.StatusCode)
 		}
 
 		return errors.Ctx().
