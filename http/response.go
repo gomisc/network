@@ -69,8 +69,7 @@ func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
 		}
 
 		return errors.Ctx().
-			Str("code", code).
-			Str("status", cerr["message"].(string)).
+			Any("body", cerr).
 			Str("trace-request-id", traceID).
 			New("unexpected status response")
 	}
