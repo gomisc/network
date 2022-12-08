@@ -3,7 +3,7 @@ module git.eth4.dev/golibs/network
 go 1.18
 
 require (
-	git.eth4.dev/golibs/errors v1.2.1
+	git.eth4.dev/golibs/errors v1.2.2
 	github.com/onsi/ginkgo v1.16.5
 	golang.org/x/net v0.0.0-20220802222814-0bcc04d9c69b
 )
@@ -22,7 +22,7 @@ require (
 require (
 	git.eth4.dev/golibs/fields v1.1.0 // indirect
 	git.eth4.dev/golibs/filepaths v1.1.0 // indirect
-	git.eth4.dev/golibs/slog v1.1.0 // indirect
+	git.eth4.dev/golibs/slog v1.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
