@@ -24,34 +24,36 @@ const (
 )
 
 // R - интерфейс HTTP-запроса
-type R interface {
-	Context(ctx context.Context) R
-	Timeout(t time.Duration) R
-	Param(key, value string) R
-	Params(params interface{}) R
-	Header(key, value string) R
-	Token(token string) R
-	FormData(data interface{}) R
-	Body(in interface{}) R
-	Get() (resp *http.Response, err error)
-	Post() (resp *http.Response, err error)
-	Put() (resp *http.Response, err error)
-	Delete() (resp *http.Response, err error)
-	Patch() (resp *http.Response, err error)
-	Head() (resp *http.Response, err error)
-	Options() (resp *http.Response, err error)
-}
+type (
+	R interface {
+		Context(ctx context.Context) R
+		Timeout(t time.Duration) R
+		Param(key, value string) R
+		Params(params interface{}) R
+		Header(key, value string) R
+		Token(token string) R
+		FormData(data interface{}) R
+		Body(in interface{}) R
+		Get() (resp *http.Response, err error)
+		Post() (resp *http.Response, err error)
+		Put() (resp *http.Response, err error)
+		Delete() (resp *http.Response, err error)
+		Patch() (resp *http.Response, err error)
+		Head() (resp *http.Response, err error)
+		Options() (resp *http.Response, err error)
+	}
 
-type request struct {
-	r      *http.Request
-	cli    *http.Client
-	tracer trace.Tracer
-	err    error
-}
+	request struct {
+		r      *http.Request
+		cli    *http.Client
+		tracer trace.Tracer
+		err    error
+	}
 
-type formSpec struct {
-	Form tags.TagProcessor
-}
+	formSpec struct {
+		Form tags.TagProcessor
+	}
+)
 
 // Request - конструктор HTTP-запроса
 func Request(addr string, args ...any) R {
@@ -181,7 +183,7 @@ func (r *request) Timeout(t time.Duration) R {
 }
 
 // FormData - устанавливает параметры в URL form data
-func (r *request) FormData(data interface{}) R {
+func (r *request) FormData(data any) R {
 	if r == nil {
 		return nil
 	}
@@ -190,7 +192,7 @@ func (r *request) FormData(data interface{}) R {
 		formData := make(url.Values)
 
 		switch data.(type) {
-		case map[string]interface{}:
+		case map[string]any:
 			for k, v := range data.(map[string]string) {
 				formData.Add(k, v)
 			}
@@ -205,14 +207,14 @@ func (r *request) FormData(data interface{}) R {
 			}
 		}
 
-		r.r.Body = io.NopCloser(bytes.NewBuffer([]byte(formData.Encode()))) // nolint: typecheck // todo: убрать, когда обновятся раннеры CI
+		r.r.Body = io.NopCloser(bytes.NewBuffer([]byte(formData.Encode())))
 	}
 
 	return r
 }
 
-// Body - маршалит и устанаваливает тело запроса
-func (r *request) Body(body interface{}) R {
+// Body - маршалит и устанавливает тело запроса
+func (r *request) Body(body any) R {
 	if r == nil {
 		return nil
 	}
@@ -337,11 +339,11 @@ func (r *request) doRequest(method string) (*http.Response, error) {
 	return resp, nil
 }
 
-func valuesFromObject(data interface{}) (url.Values, error) {
+func valuesFromObject(data any) (url.Values, error) {
 	formData := make(url.Values)
 
 	spec, err := tags.ParseSpec(formSpec{
-		Form: tags.DirectGetter(func(key string, value interface{}) {
+		Form: tags.DirectGetter(func(key string, value any) {
 			if rv := reflect.ValueOf(value); rv.Type().Kind() == reflect.Slice {
 				for i := 0; i < rv.Len(); i++ {
 					formData.Add(key, fmt.Sprintf("%v", rv.Index(i).Interface()))

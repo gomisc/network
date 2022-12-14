@@ -12,7 +12,6 @@ require (
 	git.eth4.dev/golibs/colors v1.1.0
 	git.eth4.dev/golibs/iorw v1.1.0
 	git.eth4.dev/golibs/tags v1.1.0
-	git.eth4.dev/golibs/types v1.1.1
 	github.com/stretchr/testify v1.8.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.34.0
 	go.opentelemetry.io/otel/trace v1.9.0

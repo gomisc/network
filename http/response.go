@@ -6,26 +6,25 @@ import (
 	"net/http"
 
 	"git.eth4.dev/golibs/errors"
-	"git.eth4.dev/golibs/types/caster"
 )
 
 // ResponseOrError - кастует модель ответа или ошибку из HTTP ответа
-func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
+func ResponseOrError[T any](resp *http.Response, wanted int, data *T) (*T, error) {
 	traceID := resp.Header.Get(HeaderTraceID)
 
 	switch resp.StatusCode {
 	case wanted:
 		if data != nil {
-			bodyCaster := caster.Default()
-
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
-				return errors.Wrap(err, "read response body")
+				return nil, errors.Wrap(err, "read response body")
 			}
 
-			if err = bodyCaster.Cast(body, data); err != nil {
-				return errors.Wrap(err, "decode response data")
+			if err = json.Unmarshal(body, data); err != nil {
+				return nil, errors.Wrap(err, "decode response data")
 			}
+
+			return data, nil
 		}
 	case http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound,
 		http.StatusRequestTimeout, http.StatusMethodNotAllowed, http.StatusPreconditionFailed:
@@ -38,35 +37,35 @@ func ResponseOrError(resp *http.Response, wanted int, data interface{}) error {
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			return errors.Wrap(err, "read response body")
+			return nil, errors.Wrap(err, "read response body")
 		}
 
 		if len(body) != 0 {
 			statusErr = statusErr.Str("body", string(body))
 		}
 
-		return statusErr.New("get response")
+		return nil, statusErr.New("get response")
 	default:
 		var cerr map[string]interface{}
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			return errors.Wrap(err, "read response body")
+			return nil, errors.Wrap(err, "read response body")
 		}
 
 		if err = json.Unmarshal(body, &cerr); err != nil {
-			return errors.Ctx().
+			return nil, errors.Ctx().
 				Int("code", resp.StatusCode).
 				Str("request-uri", resp.Request.RequestURI).
 				Str("trace-request-id", traceID).
 				New("get response error")
 		}
 
-		return errors.Ctx().
+		return nil, errors.Ctx().
 			Any("body", cerr).
 			Str("trace-request-id", traceID).
 			New("unexpected status response")
 	}
 
-	return nil
+	return nil, nil
 }
