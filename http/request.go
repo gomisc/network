@@ -14,8 +14,8 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
 	"go.opentelemetry.io/otel/trace"
 
-	"git.eth4.dev/golibs/errors"
-	"git.eth4.dev/golibs/tags"
+	"gopkg.in/gomisc/errors.v1"
+	"gopkg.in/gomisc/tags.v1"
 )
 
 // Настройки
@@ -342,19 +342,23 @@ func (r *request) doRequest(method string) (*http.Response, error) {
 func valuesFromObject(data any) (url.Values, error) {
 	formData := make(url.Values)
 
-	spec, err := tags.ParseSpec(formSpec{
-		Form: tags.DirectGetter(func(key string, value any) {
-			if rv := reflect.ValueOf(value); rv.Type().Kind() == reflect.Slice {
-				for i := 0; i < rv.Len(); i++ {
-					formData.Add(key, fmt.Sprintf("%v", rv.Index(i).Interface()))
-				}
+	spec, err := tags.ParseSpec(
+		formSpec{
+			Form: tags.DirectGetter(
+				func(key string, value any) {
+					if rv := reflect.ValueOf(value); rv.Type().Kind() == reflect.Slice {
+						for i := 0; i < rv.Len(); i++ {
+							formData.Add(key, fmt.Sprintf("%v", rv.Index(i).Interface()))
+						}
 
-				return
-			}
+						return
+					}
 
-			formData.Add(key, fmt.Sprintf("%v", value))
-		}),
-	})
+					formData.Add(key, fmt.Sprintf("%v", value))
+				},
+			),
+		},
+	)
 	if err != nil {
 		return nil, errors.Wrap(err, "parse tags spec")
 	}

@@ -7,10 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"git.eth4.dev/golibs/colors"
-	"git.eth4.dev/golibs/errors"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/knownhosts"
+
+	"gopkg.in/gomisc/colors.v1"
+	"gopkg.in/gomisc/errors.v1"
 )
 
 const (

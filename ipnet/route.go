@@ -3,8 +3,6 @@ package ipnet
 import (
 	"net"
 	"runtime"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 const (

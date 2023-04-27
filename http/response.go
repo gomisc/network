@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 // ResponseOrError - кастует модель ответа или ошибку из HTTP ответа

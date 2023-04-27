@@ -4,8 +4,6 @@ import (
 	"net"
 
 	"golang.org/x/net/route"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 var defaultRoute = [4]byte{0, 0, 0, 0} // nolint

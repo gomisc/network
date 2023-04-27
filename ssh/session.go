@@ -7,11 +7,11 @@ import (
 	"os"
 	"time"
 
-	"git.eth4.dev/golibs/errors"
-	"git.eth4.dev/golibs/errors/errgroup"
 	"golang.org/x/crypto/ssh"
 
-	"git.eth4.dev/golibs/iorw"
+	"gopkg.in/gomisc/errors.v1"
+	"gopkg.in/gomisc/errors.v1/errgroup"
+	"gopkg.in/gomisc/iorw.v1"
 )
 
 type sshSession struct {
@@ -62,15 +62,19 @@ func (cli *sshClient) newSession(client *ssh.Client, o ...Option) (Session, erro
 
 	eg := errgroup.New()
 
-	eg.Go(func() error {
-		_, outErr := io.Copy(session.outBuf, stdoutPipe)
-		return outErr
-	})
+	eg.Go(
+		func() error {
+			_, outErr := io.Copy(session.outBuf, stdoutPipe)
+			return outErr
+		},
+	)
 
-	eg.Go(func() error {
-		_, errErr := io.Copy(session.errBuf, stderrPipe)
-		return errErr
-	})
+	eg.Go(
+		func() error {
+			_, errErr := io.Copy(session.errBuf, stderrPipe)
+			return errErr
+		},
+	)
 
 	go func() {
 		if err = eg.Wait(); err != nil {

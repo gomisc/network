@@ -3,8 +3,6 @@ package ipnet
 import (
 	"net"
 	"sync"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 // IPFilterFunc - фильтр IP адресов

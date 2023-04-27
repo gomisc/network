@@ -4,7 +4,7 @@ import (
 	"os"
 	"strconv"
 
-	"git.eth4.dev/golibs/errors"
+	"gopkg.in/gomisc/errors.v1"
 )
 
 const (

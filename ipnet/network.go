@@ -4,8 +4,6 @@ import (
 	"context"
 	"net"
 	"sync"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 type (

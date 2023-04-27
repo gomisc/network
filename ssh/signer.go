@@ -7,11 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.eth4.dev/golibs/errors"
-
-	"git.eth4.dev/golibs/iorw"
-
 	"golang.org/x/crypto/ssh"
+
+	"gopkg.in/gomisc/errors.v1"
+	"gopkg.in/gomisc/iorw.v1"
 )
 
 type (

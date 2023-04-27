@@ -7,8 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
-	"git.eth4.dev/golibs/errors"
 )
 
 const (

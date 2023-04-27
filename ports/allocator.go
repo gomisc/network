@@ -5,6 +5,8 @@ type Allocator interface {
 	NextPort() uint16
 }
 
+var ParallelsNode = 5
+
 type portsAllocator struct {
 	startPort uint16
 }
